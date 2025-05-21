@@ -1,52 +1,18 @@
+/* Component-specific styles */
 :host {
-  /* Light Theme (Default) */
-  --tp-wrapper-bg: #f8f9fa;
-  --tp-wrapper-shadow: rgba(0, 0, 0, 0.1);
-  --tp-clock-face-bg: #ffffff;
-  --tp-clock-face-border: #ced4da;
-  --tp-clock-face-shadow: rgba(0, 0, 0, 0.05);
-  --tp-text-color: #495057; /* General text, like hour/minute numbers */
-  --tp-primary-color: #007bff; /* Active selection, icons */
-  --tp-primary-color-hover: rgba(0, 123, 255, 0.1);
-  --tp-primary-color-hover-subtle: rgba(0, 123, 255, 0.05);
-  --tp-secondary-text-color: #6c757d; /* Reset icon, AM/PM text */
-  --tp-input-border-color: #ced4da;
-  --tp-input-focus-border-color: #80bdff;
-  --tp-input-focus-shadow: rgba(0,123,255,.25);
-  --tp-switch-bg: #ccc;
-  --tp-switch-knob-bg: white;
-  --tp-font-family: 'Roboto', 'Open Sans', sans-serif;
+  display: block;
 }
 
-:host(.dark-theme) {
-  /* Dark Theme */
-  --tp-wrapper-bg: #2d3339; /* Darker background */
-  --tp-wrapper-shadow: rgba(0, 0, 0, 0.3); /* Darker shadow */
-  --tp-clock-face-bg: #3a4147; /* Mid-dark for clock face */
-  --tp-clock-face-border: #52585e; /* Lighter border for contrast */
-  --tp-clock-face-shadow: rgba(0, 0, 0, 0.2);
-  --tp-text-color: #e9ecef; /* Light text for readability */
-  --tp-primary-color: #58a6ff; /* Brighter blue for dark mode */
-  --tp-primary-color-hover: rgba(88, 166, 255, 0.15);
-  --tp-primary-color-hover-subtle: rgba(88, 166, 255, 0.1);
-  --tp-secondary-text-color: #adb5bd; /* Lighter secondary text */
-  --tp-input-border-color: #52585e;
-  --tp-input-focus-border-color: #58a6ff;
-  --tp-input-focus-shadow: rgba(88,166,255,.25);
-  --tp-switch-bg: #52585e; /* Darker switch background */
-  --tp-switch-knob-bg: #2d3339; /* Knob that matches wrapper bg */
-}
-
-.wrapper{
+.wrapper {
   position: relative;
-  background-color: var(--tp-wrapper-bg);
-  box-shadow: 0 4px 12px var(--tp-wrapper-shadow);
+  background-color: var(--tp-wrapper-bg, #f8f9fa);
+  box-shadow: 0 4px 12px var(--tp-wrapper-shadow, rgba(0, 0, 0, 0.1));
   width: 90%;
-  max-width: 300px; /* Added max-width for better responsiveness */
-  height: auto; /* Auto height for content */
-  padding: 20px; /* Added padding */
-  border-radius: 8px; /* Rounded corners */
-  margin: 1em auto; /* Centering the wrapper if it's a block */
+  max-width: 300px;
+  height: auto;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 1em auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,9 +22,9 @@
 .clock-face {
   width: 200px;
   height: 200px;
-  background-color: var(--tp-clock-face-bg);
-  border: 1px solid var(--tp-clock-face-border);
-  box-shadow: 0 2px 4px var(--tp-clock-face-shadow);
+  background-color: var(--tp-clock-face-bg, #ffffff);
+  border: 1px solid var(--tp-clock-face-border, #ced4da);
+  box-shadow: 0 2px 4px var(--tp-clock-face-shadow, rgba(0, 0, 0, 0.05));
   border-radius: 50%;
   position: relative;
   margin-bottom: 15px; /* Space below clock face */
@@ -74,7 +40,7 @@
   left: 50%; /* Center horizontally */
   bottom: 50%; /* Start from the center vertically */
   transform-origin: bottom center;
-  background-color: var(--tp-text-color); /* Default hand color */
+  background-color: var(--tp-text-color, #495057); /* Default hand color */
   border-radius: 3px 3px 0 0; 
   cursor: grab;
   z-index: 12; /* Above numbers */
@@ -90,7 +56,7 @@
   width: 4px;
   height: 90px; 
   margin-left: -2px; /* Half of its width to truly center */
-  background-color: var(--tp-secondary-text-color); 
+  background-color: var(--tp-secondary-text-color, #6c757d); 
   border-radius: 2px 2px 0 0;
 }
 
@@ -104,7 +70,7 @@
   left: 50%;
   width: 10px;
   height: 10px;
-  background-color: var(--tp-primary-color);
+  background-color: var(--tp-primary-color, #007bff);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   z-index: 15; /* Above hands and numbers */
@@ -112,7 +78,7 @@
 /* End of new hand styles */
 
 .hour span {
-  font: 15px var(--tp-font-family);
+  font: 15px var(--tp-font-family, 'Roboto', 'Open Sans', sans-serif);
   height: 70px;
   position: absolute;
   width: 20px; /* Adjusted width for better text centering */
@@ -125,11 +91,11 @@
   justify-content: center;
   align-items: flex-start;
   padding-top: 5px;
-  color: var(--tp-text-color);
+  color: var(--tp-text-color, #495057);
 }
 
 .minute span {
-  font: 12px var(--tp-font-family);
+  font: 12px var(--tp-font-family, 'Roboto', 'Open Sans', sans-serif);
   height: 90px;
   position: absolute;
   width: 16px; /* Adjusted width */
@@ -142,23 +108,23 @@
   justify-content: center;
   align-items: flex-start;
   padding-top: 5px;
-  color: var(--tp-text-color);
+  color: var(--tp-text-color, #495057);
 }
 
 /* Styling for the selected hour/minute */
 .hour span.active, .minute span.active {
   font-weight: bold;
-  color: var(--tp-primary-color);
+  color: var(--tp-primary-color, #007bff);
 }
 
 .hour span:hover {
-  background-color: var(--tp-primary-color-hover);
+  background-color: var(--tp-primary-color-hover, rgba(0, 123, 255, 0.1));
   border-radius: 4px;
   border: none;
 }
 
 .minute span:hover {
-  background-color: var(--tp-primary-color-hover-subtle);
+  background-color: var(--tp-primary-color-hover-subtle, rgba(0, 123, 255, 0.05));
   border-radius: 4px;
   border: none;
 }
@@ -167,23 +133,23 @@
   font-size: 1rem;
   width: calc(90% - 30px);
   padding: 8px 10px;
-  background-color: var(--tp-clock-face-bg); /* Input bg matches clock face */
-  color: var(--tp-text-color); /* Input text color */
-  border: 1px solid var(--tp-input-border-color);
+  background-color: var(--tp-clock-face-bg, #ffffff); /* Input bg matches clock face */
+  color: var(--tp-text-color, #495057); /* Input text color */
+  border: 1px solid var(--tp-input-border-color, #ced4da);
   border-radius: 4px;
   margin-bottom: 10px;
 }
 
 .input-box:focus {
-  border-color: var(--tp-input-focus-border-color);
-  box-shadow: 0 0 0 0.2rem var(--tp-input-focus-shadow);
+  border-color: var(--tp-input-focus-border-color, #80bdff);
+  box-shadow: 0 0 0 0.2rem var(--tp-input-focus-shadow, rgba(0,123,255,.25));
   outline: none;
 }
 
 .icon-clock {
   cursor: pointer;
   padding: 5px;
-  color: var(--tp-primary-color);
+  color: var(--tp-primary-color, #007bff);
 }
 
 .icon-clock-reset {
@@ -191,11 +157,11 @@
   top: 10px;
   right: 10px;
   font-size: 0.9rem;
-  color: var(--tp-secondary-text-color);
+  color: var(--tp-secondary-text-color, #6c757d);
   cursor: pointer;
 }
 .icon-clock-reset:hover {
-  color: var(--tp-primary-color);
+  color: var(--tp-primary-color, #007bff);
 }
 
 /* Theme Switcher Styles */
@@ -208,22 +174,22 @@
 
 .theme-button {
   padding: 5px 10px;
-  border: 1px solid var(--tp-input-border-color);
-  background-color: var(--tp-clock-face-bg);
-  color: var(--tp-text-color);
+  border: 1px solid var(--tp-input-border-color, #ced4da);
+  background-color: var(--tp-clock-face-bg, #ffffff);
+  color: var(--tp-text-color, #495057);
   cursor: pointer;
   border-radius: 4px;
   font-size: 0.8rem;
 }
 
 .theme-button:hover {
-  background-color: var(--tp-wrapper-bg); /* Use wrapper bg for hover */
+  background-color: var(--tp-primary-color-hover, rgba(0, 123, 255, 0.1));
 }
 
 .theme-button.active {
-  background-color: var(--tp-primary-color);
-  color: var(--tp-clock-face-bg); /* Or a specific color for active button text */
-  border-color: var(--tp-primary-color);
+  background-color: var(--tp-primary-color, #007bff);
+  color: var(--tp-clock-face-bg, #ffffff); /* Or a specific color for active button text */
+  border-color: var(--tp-primary-color, #007bff);
 }
 
 
@@ -244,7 +210,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--tp-switch-bg);
+  background-color: var(--tp-switch-bg, #ccc);
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 24px; /* Fully rounded slider */
@@ -257,18 +223,18 @@
   width: 20px;  /* Larger knob */
   left: 2px;
   bottom: 2px;
-  background-color: var(--tp-switch-knob-bg);
+  background-color: var(--tp-switch-knob-bg, white);
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 50%; /* Circular knob */
 }
 
 input:checked + .slider {
-  background-color: var(--tp-primary-color);
+  background-color: var(--tp-primary-color, #007bff);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px var(--tp-primary-color);
+  box-shadow: 0 0 1px var(--tp-primary-color, #007bff);
 }
 
 input:checked + .slider:before {
@@ -286,7 +252,7 @@ input:checked + .slider:before {
   justify-content: center;
   margin-top: 15px;
   font-size: 0.9rem;
-  color: var(--tp-secondary-text-color);
+  color: var(--tp-secondary-text-color, #6c757d);
 }
 
 .am-pm-box span {

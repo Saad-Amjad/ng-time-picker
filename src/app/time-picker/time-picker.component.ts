@@ -8,7 +8,7 @@ import { Component, OnInit, Output, EventEmitter, HostBinding, ViewChild, Elemen
 export class TimePickerComponent implements OnInit, AfterViewInit {
 
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('clockFace') clockFaceEl: ElementRef<HTMLDivElement>;
+  @ViewChild('clockFace') clockFaceEl: ElementRef;
 
   constructor() { }
   hours = [];
@@ -30,6 +30,44 @@ export class TimePickerComponent implements OnInit, AfterViewInit {
   draggingHand: 'hour' | 'minute' | null = null;
   clockCenterX: number;
   clockCenterY: number;
+
+  lightThemeVars = {
+    '--tp-wrapper-bg': '#f8f9fa',
+    '--tp-wrapper-shadow': 'rgba(0, 0, 0, 0.1)',
+    '--tp-clock-face-bg': '#ffffff',
+    '--tp-clock-face-border': '#ced4da',
+    '--tp-clock-face-shadow': 'rgba(0, 0, 0, 0.05)',
+    '--tp-text-color': '#495057',
+    '--tp-primary-color': '#007bff',
+    '--tp-primary-color-hover': 'rgba(0, 123, 255, 0.1)',
+    '--tp-primary-color-hover-subtle': 'rgba(0, 123, 255, 0.05)',
+    '--tp-secondary-text-color': '#6c757d',
+    '--tp-input-border-color': '#ced4da',
+    '--tp-input-focus-border-color': '#80bdff',
+    '--tp-input-focus-shadow': 'rgba(0,123,255,.25)',
+    '--tp-switch-bg': '#ccc',
+    '--tp-switch-knob-bg': 'white',
+    '--tp-font-family': "'Roboto', 'Open Sans', sans-serif"
+  };
+
+  darkThemeVars = {
+    '--tp-wrapper-bg': '#2d3339',
+    '--tp-wrapper-shadow': 'rgba(0, 0, 0, 0.3)',
+    '--tp-clock-face-bg': '#3a4147',
+    '--tp-clock-face-border': '#52585e',
+    '--tp-clock-face-shadow': 'rgba(0, 0, 0, 0.2)',
+    '--tp-text-color': '#e9ecef',
+    '--tp-primary-color': '#58a6ff',
+    '--tp-primary-color-hover': 'rgba(88, 166, 255, 0.15)',
+    '--tp-primary-color-hover-subtle': 'rgba(88, 166, 255, 0.1)',
+    '--tp-secondary-text-color': '#adb5bd',
+    '--tp-input-border-color': '#52585e',
+    '--tp-input-focus-border-color': '#58a6ff',
+    '--tp-input-focus-shadow': 'rgba(88,166,255,.25)',
+    '--tp-switch-bg': '#52585e',
+    '--tp-switch-knob-bg': '#2d3339',
+    '--tp-font-family': "'Roboto', 'Open Sans', sans-serif"
+  };
 
   @HostBinding('class.dark-theme') get isDarkTheme() {
     return this.currentTheme === 'dark';
@@ -60,6 +98,10 @@ export class TimePickerComponent implements OnInit, AfterViewInit {
   setTheme(themeName: string) {
     this.currentTheme = themeName;
     localStorage.setItem('timePickerTheme', themeName);
+    const vars = themeName === 'dark' ? this.darkThemeVars : this.lightThemeVars;
+    Object.entries(vars).forEach(([key, value]) => {
+      document.documentElement.style.setProperty(key, value);
+    });
   }
 
   initHours() {

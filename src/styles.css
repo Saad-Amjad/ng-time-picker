@@ -1,2 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
-@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
+/* Global CSS Custom Properties */
+:root {
+  /* Light Theme (Default) */
+  --tp-wrapper-bg: #f8f9fa;
+  --tp-wrapper-shadow: rgba(0, 0, 0, 0.1);
+  --tp-clock-face-bg: #ffffff;
+  --tp-clock-face-border: #ced4da;
+  --tp-clock-face-shadow: rgba(0, 0, 0, 0.05);
+  --tp-text-color: #495057;
+  --tp-primary-color: #007bff;
+  --tp-primary-color-hover: rgba(0, 123, 255, 0.1);
+  --tp-primary-color-hover-subtle: rgba(0, 123, 255, 0.05);
+  --tp-secondary-text-color: #6c757d;
+  --tp-input-border-color: #ced4da;
+  --tp-input-focus-border-color: #80bdff;
+  --tp-input-focus-shadow: rgba(0,123,255,.25);
+  --tp-switch-bg: #ccc;
+  --tp-switch-knob-bg: white;
+  --tp-font-family: 'Roboto', 'Open Sans', sans-serif;
+}
