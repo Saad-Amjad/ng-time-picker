@@ -8,7 +8,7 @@
   background-color: var(--tp-wrapper-bg, #f8f9fa);
   box-shadow: 0 4px 12px var(--tp-wrapper-shadow, rgba(0, 0, 0, 0.1));
   width: 90%;
-  max-width: 300px;
+  max-width: 340px; /* Adjusted from 300px */
   height: auto;
   padding: 20px;
   border-radius: 8px;
@@ -20,8 +20,8 @@
 
 /* Basic clock face circle */
 .clock-face {
-  width: 200px;
-  height: 200px;
+  width: 240px; /* Adjusted from 200px */
+  height: 240px; /* Adjusted from 200px */
   background-color: var(--tp-clock-face-bg, #ffffff);
   border: 1px solid var(--tp-clock-face-border, #ced4da);
   box-shadow: 0 2px 4px var(--tp-clock-face-shadow, rgba(0, 0, 0, 0.05));
@@ -47,16 +47,16 @@
 }
 
 .hour-hand {
-  width: 6px;
-  height: 65px; 
-  margin-left: -3px; /* Half of its width to truly center */
+  width: 7px; /* Adjusted from 6px */
+  height: 75px; /* Adjusted from 65px */
+  margin-left: -3.5px; /* Half of its width to truly center */
 }
 
 .minute-hand {
-  width: 4px;
-  height: 90px; 
-  margin-left: -2px; /* Half of its width to truly center */
-  background-color: var(--tp-secondary-text-color, #6c757d); 
+  width: 5px; /* Adjusted from 4px */
+  height: 105px; /* Adjusted from 90px */
+  margin-left: -2.5px; /* Half of its width to truly center */
+  background-color: var(--tp-secondary-text-color, #6c757d);
   border-radius: 2px 2px 0 0;
 }
 
@@ -68,8 +68,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 10px;
-  height: 10px;
+  width: 12px; /* Adjusted from 10px */
+  height: 12px; /* Adjusted from 10px */
   background-color: var(--tp-primary-color, #007bff);
   border-radius: 50%;
   transform: translate(-50%, -50%);
@@ -78,36 +78,36 @@
 /* End of new hand styles */
 
 .hour span {
-  font: 15px var(--tp-font-family, 'Roboto', 'Open Sans', sans-serif);
-  height: 70px;
+  font: 16px var(--tp-font-family, 'Roboto', 'Open Sans', sans-serif); /* Adjusted from 15px */
+  height: 120px; /* New clock radius */
   position: absolute;
-  width: 20px; /* Adjusted width for better text centering */
-  left: calc(50% - 10px); /* Center the span */
-  top: calc(50% - 70px); /* Position relative to center */
-  transform-origin: bottom center;
+  width: 28px; /* Adjusted for font size */
+  left: calc(50% - 14px); /* Center the span */
+  top: 0; /* Align to top of clock-face parent */
+  transform-origin: center bottom; /* Rotate around clock center */
   cursor: pointer;
-  z-index: 8; /* Below hands and center dot */
+  z-index: 8;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 5px;
+  justify-content: center; /* Horizontally center text */
+  align-items: flex-start; /* Align text to the top of this rotated line */
+  padding-top: 12px; /* Adjusted from 10px */
   color: var(--tp-text-color, #495057);
 }
 
 .minute span {
-  font: 12px var(--tp-font-family, 'Roboto', 'Open Sans', sans-serif);
-  height: 90px;
+  font: 13px var(--tp-font-family, 'Roboto', 'Open Sans', sans-serif); /* Adjusted from 12px */
+  height: 120px; /* New clock radius */
   position: absolute;
-  width: 16px; /* Adjusted width */
-  left: calc(50% - 8px); /* Center the span */
-  top: calc(50% - 90px); /* Position relative to center */
-  transform-origin: bottom center;
+  width: 22px; /* Adjusted for font size */
+  left: calc(50% - 11px); /* Center the span */
+  top: 0; /* Align to top of clock-face parent */
+  transform-origin: center bottom; /* Rotate around clock center */
   cursor: pointer;
-  z-index: 7; /* Below hour numbers, hands, and center dot */
+  z-index: 7;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 5px;
+  justify-content: center; /* Horizontally center text */
+  align-items: flex-start; /* Align text to the top of this rotated line */
+  padding-top: 28px; /* Adjusted from 25px */
   color: var(--tp-text-color, #495057);
 }
 
@@ -130,9 +130,9 @@
 }
 
 .input-box{
-  font-size: 1rem;
-  width: calc(90% - 30px);
-  padding: 8px 10px;
+  font-size: 1.1rem; /* Adjusted from 1rem */
+  width: calc(90% - 30px); /* Keep width formula, padding change will affect inner width */
+  padding: 10px 12px; /* Adjusted from 8px 10px */
   background-color: var(--tp-clock-face-bg, #ffffff); /* Input bg matches clock face */
   color: var(--tp-text-color, #495057); /* Input text color */
   border: 1px solid var(--tp-input-border-color, #ced4da);
@@ -197,8 +197,8 @@
 .switch {
   position: relative;
   display: inline-block;
-  width: 50px; /* Slightly wider */
-  height: 24px; /* Slightly taller */
+  width: 54px; /* Adjusted from 50px */
+  height: 26px; /* Adjusted from 24px */
 }
 
 .switch input {display:none;}
@@ -213,16 +213,16 @@
   background-color: var(--tp-switch-bg, #ccc);
   -webkit-transition: .4s;
   transition: .4s;
-  border-radius: 24px; /* Fully rounded slider */
+  border-radius: 26px; /* Adjusted for new height */
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 20px; /* Larger knob */
-  width: 20px;  /* Larger knob */
-  left: 2px;
-  bottom: 2px;
+  height: 22px; /* Adjusted from 20px */
+  width: 22px;  /* Adjusted from 20px */
+  left: 2px;   /* Adjusted from 2px */
+  bottom: 2px; /* Adjusted from 2px */
   background-color: var(--tp-switch-knob-bg, white);
   -webkit-transition: .4s;
   transition: .4s;
@@ -238,9 +238,9 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  -webkit-transform: translateX(28px); /* Adjusted from 26px */
+  -ms-transform: translateX(28px); /* Adjusted from 26px */
+  transform: translateX(28px); /* Adjusted from 26px */
 }
 
 .am-pm-box{
@@ -251,7 +251,7 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: center;
   margin-top: 15px;
-  font-size: 0.9rem;
+  font-size: 1rem; /* Adjusted from 0.9rem */
   color: var(--tp-secondary-text-color, #6c757d);
 }
 
