@@ -1,40 +1,60 @@
 <div>
   <input class="input-box" (click)="openClock()" 
     [value]="selectedHour + ':' + selectedMinute + ' ' +selectedTime"
-    readonly type="text" placeholder="H: MM"/>
+    readonly type="text" placeholder="H:MM"/> <!-- Placeholder updated -->
   <span (click)="openClock()" class="icon-clock">
-    <i *ngIf="open == false" class="fa fa-clock-o" aria-hidden="true"></i>
-    <i *ngIf="open == true" class="fa fa-times" aria-hidden="true"></i>
+    <i *ngIf="!open" class="fa fa-clock-o" aria-hidden="true"></i> <!-- Simpler condition -->
+    <i *ngIf="open" class="fa fa-times" aria-hidden="true"></i> <!-- Simpler condition -->
   </span>
 </div>
 
 <div *ngIf="open === true" class="wrapper">
-  <span style="cursor: pointer; top: 3px; font: 10px Monaco, MonoSpace" 
-    (click)="resetClock()">Reset Clock</span>
-  <div class="am-pm-box">
-    <span style="font-size: 50%;">AM</span>
-    <label class="switch">
-  <input type="checkbox">
-  <span (click)="setTime('PM')" class="slider round"></span>
-  </label>
-    <span style="font-size: 50%">PM</span>
+  <div class="theme-switcher">
+    <button class="theme-button" (click)="setTheme('light')" [class.active]="currentTheme === 'light'">Light</button>
+    <button class="theme-button" (click)="setTheme('dark')" [class.active]="currentTheme === 'dark'">Dark</button>
   </div>
-  <h1 class="hour">
-    <span *ngFor="let hour of hours; let i =index" 
-      [style.border]="hourActiveState == true && selectedHour == hour.hour ? '2px solid grey' : null"
-      [ngStyle]="{'transform': 'rotate(' + hour.degree + ')'}" 
-      (click)="setHour(hour.hour)">
-      {{ hour.hour }}
+  <span class="icon-clock-reset" (click)="resetClock()">Reset Clock</span>
+  
+  <div class="clock-face" #clockFace>
+    <!-- Draggable Hands -->
+    <div class="clock-hand hour-hand" 
+         [style.transform]="'rotate(' + hourHandRotation + 'deg')"
+         (mousedown)="startDrag('hour', $event)"></div>
+    <div class="clock-hand minute-hand" 
+         [style.transform]="'rotate(' + minuteHandRotation + 'deg')"
+         (mousedown)="startDrag('minute', $event)"></div>
+    <!-- Center Dot -->
+    <div class="clock-center-dot"></div>
+
+    <!-- Hour Numbers -->
+    <h1 class="hour">
+      <span *ngFor="let hour of hours; let i =index"
+        [class.active]="selectedHour == hour.hour" <!-- Class binding for active state -->
+        [ngStyle]="{'transform': 'rotate(' + hour.degree + 'deg)'}" <!-- Added 'deg' unit -->
+        (click)="setHour(hour.hour)">
+        {{ hour.hour }}
       </span>
-  </h1>
-  <h1 class="minute">
-    <span *ngFor="let minute of minutes; let i =index" 
-      [style.border]="minuteActiveState == true  && selectedMinute == minute.minute || (selectedMinute == 00 && minute.minute == 60) ? '1px solid grey' : null"
-      [ngStyle]="{'transform': 'rotate(' + minute.degree + ')'}" (click)="setMinute(minute.minute)">
-      <ng-container *ngIf="!minute.hide">
-        {{ minute.minute}}
-      </ng-container>
-      <ng-container *ngIf="minute.hide">.</ng-container>
+    </h1>
+    <!-- Minute Markers/Numbers -->
+    <h1 class="minute">
+      <span *ngFor="let minute of minutes; let i =index"
+        [class.active]="selectedMinute == minute.display" <!-- Simplified active class condition -->
+        [ngStyle]="{'transform': 'rotate(' + minute.degree + 'deg)'}" <!-- Added 'deg' unit -->
+        (click)="setMinute(minute.minute)">
+        <ng-container *ngIf="!minute.hide">
+          {{ minute.display }} <!-- Use minute.display which should be padded -->
+        </ng-container>
+        <ng-container *ngIf="minute.hide">.</ng-container>
       </span>
-  </h1>
+    </h1>
+  </div>
+
+  <div class="am-pm-box">
+    <span>AM</span> <!-- Removed inline font-size -->
+    <label class="switch">
+      <input type="checkbox" [checked]="selectedTime === 'PM'" (change)="toggleTime()"> <!-- Two-way binding for AM/PM -->
+      <span class="slider"></span> <!-- Removed .round as slider is already styled -->
+    </label>
+    <span>PM</span> <!-- Removed inline font-size -->
+  </div>
 </div>

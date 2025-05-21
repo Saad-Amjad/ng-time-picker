@@ -1,69 +1,242 @@
-.wrapper{
- position: inherit;
- background-color: white;
- box-shadow: 3px 3px 1px grey;
- width: 90%;
- height: 16em;
+:host {
+  /* Light Theme (Default) */
+  --tp-wrapper-bg: #f8f9fa;
+  --tp-wrapper-shadow: rgba(0, 0, 0, 0.1);
+  --tp-clock-face-bg: #ffffff;
+  --tp-clock-face-border: #ced4da;
+  --tp-clock-face-shadow: rgba(0, 0, 0, 0.05);
+  --tp-text-color: #495057; /* General text, like hour/minute numbers */
+  --tp-primary-color: #007bff; /* Active selection, icons */
+  --tp-primary-color-hover: rgba(0, 123, 255, 0.1);
+  --tp-primary-color-hover-subtle: rgba(0, 123, 255, 0.05);
+  --tp-secondary-text-color: #6c757d; /* Reset icon, AM/PM text */
+  --tp-input-border-color: #ced4da;
+  --tp-input-focus-border-color: #80bdff;
+  --tp-input-focus-shadow: rgba(0,123,255,.25);
+  --tp-switch-bg: #ccc;
+  --tp-switch-knob-bg: white;
+  --tp-font-family: 'Roboto', 'Open Sans', sans-serif;
 }
 
-.hour span {
-  font: 16px Monaco, MonoSpace;
-  height: 75px;
+:host(.dark-theme) {
+  /* Dark Theme */
+  --tp-wrapper-bg: #2d3339; /* Darker background */
+  --tp-wrapper-shadow: rgba(0, 0, 0, 0.3); /* Darker shadow */
+  --tp-clock-face-bg: #3a4147; /* Mid-dark for clock face */
+  --tp-clock-face-border: #52585e; /* Lighter border for contrast */
+  --tp-clock-face-shadow: rgba(0, 0, 0, 0.2);
+  --tp-text-color: #e9ecef; /* Light text for readability */
+  --tp-primary-color: #58a6ff; /* Brighter blue for dark mode */
+  --tp-primary-color-hover: rgba(88, 166, 255, 0.15);
+  --tp-primary-color-hover-subtle: rgba(88, 166, 255, 0.1);
+  --tp-secondary-text-color: #adb5bd; /* Lighter secondary text */
+  --tp-input-border-color: #52585e;
+  --tp-input-focus-border-color: #58a6ff;
+  --tp-input-focus-shadow: rgba(88,166,255,.25);
+  --tp-switch-bg: #52585e; /* Darker switch background */
+  --tp-switch-knob-bg: #2d3339; /* Knob that matches wrapper bg */
+}
+
+.wrapper{
+  position: relative;
+  background-color: var(--tp-wrapper-bg);
+  box-shadow: 0 4px 12px var(--tp-wrapper-shadow);
+  width: 90%;
+  max-width: 300px; /* Added max-width for better responsiveness */
+  height: auto; /* Auto height for content */
+  padding: 20px; /* Added padding */
+  border-radius: 8px; /* Rounded corners */
+  margin: 1em auto; /* Centering the wrapper if it's a block */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Basic clock face circle */
+.clock-face {
+  width: 200px;
+  height: 200px;
+  background-color: var(--tp-clock-face-bg);
+  border: 1px solid var(--tp-clock-face-border);
+  box-shadow: 0 2px 4px var(--tp-clock-face-shadow);
+  border-radius: 50%;
+  position: relative;
+  margin-bottom: 15px; /* Space below clock face */
+  /* Ensure child elements with absolute positioning are contained and centered */
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styles for the new clock hands and center dot */
+.clock-hand {
   position: absolute;
-  width: 15px;
-  left: 9.5em;
-  top: 4.8em;
+  left: 50%; /* Center horizontally */
+  bottom: 50%; /* Start from the center vertically */
+  transform-origin: bottom center;
+  background-color: var(--tp-text-color); /* Default hand color */
+  border-radius: 3px 3px 0 0; 
+  cursor: grab;
+  z-index: 12; /* Above numbers */
+}
+
+.hour-hand {
+  width: 6px;
+  height: 65px; 
+  margin-left: -3px; /* Half of its width to truly center */
+}
+
+.minute-hand {
+  width: 4px;
+  height: 90px; 
+  margin-left: -2px; /* Half of its width to truly center */
+  background-color: var(--tp-secondary-text-color); 
+  border-radius: 2px 2px 0 0;
+}
+
+.clock-hand:active {
+  cursor: grabbing;
+}
+
+.clock-center-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: var(--tp-primary-color);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15; /* Above hands and numbers */
+}
+/* End of new hand styles */
+
+.hour span {
+  font: 15px var(--tp-font-family);
+  height: 70px;
+  position: absolute;
+  width: 20px; /* Adjusted width for better text centering */
+  left: calc(50% - 10px); /* Center the span */
+  top: calc(50% - 70px); /* Position relative to center */
   transform-origin: bottom center;
   cursor: pointer;
-  z-index: 1000;
-  /*border-right: 1px solid red;*/
+  z-index: 8; /* Below hands and center dot */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 5px;
+  color: var(--tp-text-color);
 }
 
 .minute span {
-  font: 10px Monaco, MonoSpace;
-  height: 100px;
+  font: 12px var(--tp-font-family);
+  height: 90px;
   position: absolute;
-  width: 20px;
-  left: 15.2em;
-  top: 5.5em;
+  width: 16px; /* Adjusted width */
+  left: calc(50% - 8px); /* Center the span */
+  top: calc(50% - 90px); /* Position relative to center */
   transform-origin: bottom center;
   cursor: pointer;
-  /*border-right: 1px solid red;*/
+  z-index: 7; /* Below hour numbers, hands, and center dot */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 5px;
+  color: var(--tp-text-color);
 }
 
-.hour span:hover { 
-    border: 4px solid grey;
+/* Styling for the selected hour/minute */
+.hour span.active, .minute span.active {
+  font-weight: bold;
+  color: var(--tp-primary-color);
 }
 
-.minute span:hover { 
-    border: 1px solid grey;
+.hour span:hover {
+  background-color: var(--tp-primary-color-hover);
+  border-radius: 4px;
+  border: none;
 }
+
+.minute span:hover {
+  background-color: var(--tp-primary-color-hover-subtle);
+  border-radius: 4px;
+  border: none;
+}
+
 .input-box{
-  font-size: relative; 
-  width: 90%;
+  font-size: 1rem;
+  width: calc(90% - 30px);
+  padding: 8px 10px;
+  background-color: var(--tp-clock-face-bg); /* Input bg matches clock face */
+  color: var(--tp-text-color); /* Input text color */
+  border: 1px solid var(--tp-input-border-color);
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.input-box:focus {
+  border-color: var(--tp-input-focus-border-color);
+  box-shadow: 0 0 0 0.2rem var(--tp-input-focus-shadow);
+  outline: none;
 }
 
 .icon-clock {
-cursor: pointer;
+  cursor: pointer;
+  padding: 5px;
+  color: var(--tp-primary-color);
 }
 
 .icon-clock-reset {
-position: absolute;
-left: 90%;
-font-size: 100%; 
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.9rem;
+  color: var(--tp-secondary-text-color);
+  cursor: pointer;
+}
+.icon-clock-reset:hover {
+  color: var(--tp-primary-color);
 }
 
+/* Theme Switcher Styles */
+.theme-switcher {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  gap: 5px;
+}
+
+.theme-button {
+  padding: 5px 10px;
+  border: 1px solid var(--tp-input-border-color);
+  background-color: var(--tp-clock-face-bg);
+  color: var(--tp-text-color);
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.theme-button:hover {
+  background-color: var(--tp-wrapper-bg); /* Use wrapper bg for hover */
+}
+
+.theme-button.active {
+  background-color: var(--tp-primary-color);
+  color: var(--tp-clock-face-bg); /* Or a specific color for active button text */
+  border-color: var(--tp-primary-color);
+}
+
+
+/* Modern AM/PM Switch */
 .switch {
   position: relative;
   display: inline-block;
-  width: 45px;
-  height: 16px;
+  width: 50px; /* Slightly wider */
+  height: 24px; /* Slightly taller */
 }
 
-/* Hide default HTML checkbox */
 .switch input {display:none;}
 
-/* The slider */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -71,29 +244,31 @@ font-size: 100%;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: var(--tp-switch-bg);
   -webkit-transition: .4s;
   transition: .4s;
+  border-radius: 24px; /* Fully rounded slider */
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 13px;
-  width: 13px;
+  height: 20px; /* Larger knob */
+  width: 20px;  /* Larger knob */
   left: 2px;
   bottom: 2px;
-  background-color: white;
+  background-color: var(--tp-switch-knob-bg);
   -webkit-transition: .4s;
   transition: .4s;
+  border-radius: 50%; /* Circular knob */
 }
 
 input:checked + .slider {
-  background-color: grey;
+  background-color: var(--tp-primary-color);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px grey;
+  box-shadow: 0 0 1px var(--tp-primary-color);
 }
 
 input:checked + .slider:before {
@@ -102,17 +277,18 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
 .am-pm-box{
   position: relative;
-  top: 1em; 
-  width: 100%;
+  /* top: 1em; */ /* Removed fixed top positioning, rely on flexbox for layout */
+  width: auto; /* Auto width */
+  display: flex; /* Use flex for alignment */
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: var(--tp-secondary-text-color);
+}
+
+.am-pm-box span {
+  padding: 0 10px;
 }
